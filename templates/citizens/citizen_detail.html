@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+{% block title %} 
+  Житель {{ citizen.first_name }} 
+{% endblock title %} 
+{% block content %}
+  <div class="row m-3">
+    <aside class="col-12 col-md-3">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Имя: {{ citizen.first_name }}</li>
+        <li class="list-group-item">Фамилия: {{ citizen.last_name }}</li>
+        <li class="list-group-item">Возраст: {{ citizen.age }}</li>
+        <li class="list-group-item">Статус: {{ citizen.status }}</li>
+        <li class="list-group-item">Хозяин: {{ citizen.master }}</li>
+        <li class="list-group-item">Доход: {{ citizen.income }}</li>
+      </ul>
+      {% if user == post.author %}
+        <a class="btn btn-primary" href="{% url 'citizens:citizen_edit' item.id %}">
+          Редактировать
+        </a>
+        <a class="btn btn-danger" href="{% url 'citizens:citizen_delete' item.id %}">
+          Удалить
+        </a>
+      {% endif %}
+    </aside>
+    <article class="col-12 col-md-9">
+      <p>{{ post.text|linebreaks }}</p>
+    </article>
+  </div>
+{% endblock content %}
