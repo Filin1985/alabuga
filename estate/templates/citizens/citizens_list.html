@@ -1,0 +1,49 @@
+{% extends 'base.html' %} 
+{% block title %} 
+  Список
+{% endblock title %} 
+{% block content %}
+
+  <div class="container py-5">
+      <form
+        id="searchForm"
+        class="form"
+        action="{% url 'citizens:citizens_list' %}"
+        method="get"
+      >
+          <label for="formInput#search">Поиск Жителей </label>
+          <input
+            id="formInput#search"
+            type="text"
+            name="search_query"
+            value="{{search_query}}"
+            placeholder="Введите критерий"
+          />
+
+        <input class="btn btn-primary" type="submit" value="Искать" />
+      </form>
+    </div>
+
+  <div class="container py-5">
+    <h1>{{ group.title }}</h1>
+    {% for citizen in citizens %}
+      <article>
+        <ul>
+          <li>Имя: {{ citizen.first_name }}</li>
+          <li>Фамилия: {{ citizen.last_name }}</li>
+          <li>Возраст: {{ citizen.age }}</li>
+          <li>Статус: {{ citizen.status }}</li>
+          <li>Хозяин: {{ citizen.master }}</li>
+          <li>Доход: {{ citizen.income }}</li>
+        </ul>
+      </article>
+      <a class="btn btn-success" href="{% url 'citizens:citizen_detail' citizen.id %}">
+        Подробно
+      </a>
+      {% if not forloop.last %}
+        <hr />
+      {% endif %} 
+    {% endfor %} 
+    {% include 'citizens/includes/paginator.html' with queryset=citizens %}
+  </div>
+{% endblock content %}
