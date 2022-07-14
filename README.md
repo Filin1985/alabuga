@@ -23,7 +23,7 @@
   `cd estate`
 
 - Наполните базу данных 
-  `python manage.py seed api --number=500`
+  `python manage.py seed citizen --number=500`
 
 - Запустите приложение
   `python manage.py runserver`
